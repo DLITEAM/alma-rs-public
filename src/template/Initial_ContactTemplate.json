@@ -1,0 +1,50 @@
+{
+  "address": [
+    {
+      "preferred": true,
+      "line1": "",
+      "line2": "",
+      "line3": "",
+      "line4": "",
+      "line5": "",
+      "city": "",
+      "state_province": "",
+      "postal_code": "",
+      "country": {
+        "desc": "Australia",
+        "value": "AUS"
+      },
+      "address_note": "",
+      "address_type": [
+        "billing",
+        "returns",
+        "shipping"
+      ]
+    }
+  ],
+  "phone": [
+    {
+      "preferred": true,
+      "preferredSMS": false,
+      "phone_number": "",
+      "phone_type": [
+        "claimPhone",
+        "paymentPhone",
+        "returnsPhone"
+      ]
+    }
+  ],
+  "email": [
+    {
+      "preferred": true,
+      "email_address": "",
+      "description": "",
+      "email_type": [
+        "paymentMail",
+        "queries",
+        "returnsMail"
+      ]
+    }
+  ]
+
+}

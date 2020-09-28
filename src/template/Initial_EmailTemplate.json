@@ -1,0 +1,6 @@
+{
+  "To": "lib.duld.appsupp@unsw.edu.au",
+  "Subject": "Alma Resource Sharing Notification Email (%1$s)",
+  "Headers": "From: no-reply@library.unsw.edu.au",
+  "Body": "%1$s"
+}

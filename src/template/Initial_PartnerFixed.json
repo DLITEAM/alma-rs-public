@@ -1,0 +1,24 @@
+{
+  "status": "ACTIVE",
+  "profile_type": "ISO",
+  "ill_server": "nla.vdxhost.com",
+  "request_expiry_type": {
+    "value": "NO_EXPIRY",
+    "desc": "No Expiry"
+  },
+  "send_requester_information": false,
+  "shared_barcodes": true,
+  "ignore_shipping_cost_override": false,
+  "resending_overdue_message_interval": 8,
+  "avg_supply_time": 4,
+  "delivery_delay": 5,
+  "currency": "AUD",
+  "borrowing_supported": true,
+  "borrowing_workflow": "Borrowing",
+  "lending_supported": true,
+  "lending_workflow": "Lending",
+  "locate_profile": {
+    "value": "LADD",
+    "desc": "Profile to locate borrowing library holdings in ANBD "
+  }
+}

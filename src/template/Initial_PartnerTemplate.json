@@ -1,0 +1,47 @@
+{
+  "partner_details": {
+    "code": "%1$s",
+    "name": "%2$s",
+    "status": "ACTIVE",
+    "profile_details": {
+      "profile_type": "ISO",
+      "iso_details": {
+        "alternative_document_delivery": false,
+        "ill_server": "nla.vdxhost.com",
+        "ill_port": %4$d,
+        "iso_symbol": "%3$s",
+        "request_expiry_type": {},
+        "send_requester_information": false,
+        "shared_barcodes": true,
+        "ignore_shipping_cost_override": false,
+        "resending_overdue_message_interval": 8
+      }
+    },
+    "system_type": {
+      "value": "LADD",
+      "desc": "LADD"
+    },
+    "avg_supply_time": 4,
+    "delivery_delay": 7,
+    "currency": "AUD",
+    "borrowing_supported": true,
+    "borrowing_workflow": "Borrowing",
+    "lending_supported": true,
+    "lending_workflow": "Lending",
+    "auto_cancel_supported": false,
+    "auto_claim_supported": false,
+    "locate_profile": {
+      "value": "LADD",
+      "desc": "Profile to locate borrowing library holdings in ANBD "
+    },
+    "institution_code": "LADD Resource Sharing",
+    "holding_code": "%1$s"
+  },
+  "contact_info": {
+    "address": [],
+    "phone": [],
+    "email": []
+  },
+  "note": [],
+  "link": null
+}
