@@ -10,7 +10,7 @@ UNSW Library Alma RS Project
 1.  PHP 7.0 and above
 1.  PHP Curl packege (client application)
 1.  Git
-1.  Alma API Key (UAT and PROD)
+1.  Alma API Key (UAT and PROD) - Keys need to be added to Initial_Const.php file before run any tests
 1.  Email server configuration (if need email notifications)
 
 ### Installation
@@ -36,14 +36,14 @@ AAAR,"National Archives of Australia",NLA,library@naa.gov.au
 AACOM,"Aust. Competition & Consumer Commission",NLA,library@accc.gov.au
 ```
 
-The file name and path can be configued in [Initial_Const.php](scr/Initial_Const.php) file.
+The file name and path can be configued in [Initial_Const.php](src/Initial_Const.php) file.
 
 #### Initial record template file
 
 It is a JSON file which defines partner record format for API call.
-[See file format](scr/template/Initial_PartnerTemplate.json)
+[See file format](src/template/Initial_PartnerTemplate.json)
 
-The file name and path can be configued in [Initial_Const.php](scr/Initial_Const.php) file.
+The file name and path can be configued in [Initial_Const.php](src/Initial_Const.php) file.
 
 #### Initial record fixed values file
 
@@ -77,19 +77,19 @@ Sample:
 }
 ```
 
-The file name and path can be configued in [Initial_Const.php](scr/Initial_Const.php) file.
+The file name and path can be configued in [Initial_Const.php](src/Initial_Const.php) file.
 
 #### Initial log template file
 
 It is a log file which defines progress log template.
 
-The file name and path can be configued in [Initial_Const.php](scr/Initial_Const.php) file.
+The file name and path can be configued in [Initial_Const.php](src/Initial_Const.php) file.
 
 #### Initial email template file
 
 It is a JSON file which defines email template. Without it, emails won't be sent.
 
-The file name and path can be configued in [Initial_Const.php](scr/Initial_Const.php) file.
+The file name and path can be configued in [Initial_Const.php](src/Initial_Const.php) file.
 
 
 
@@ -146,8 +146,8 @@ Total: 4; Successful: 0; Failed: 1; Existing: 3; Internal Error: 0;
 Error Log: error_log_1589943514.log
 ```
 
-Log format is defined in [progress_logtemplate.log](scr/template/progress_logtemplate.log)
-The file name and path can be configued in [Initial_Const.php](scr/Initial_Const.php) file.
+Log format is defined in [progress_logtemplate.log](src/template/progress_logtemplate.log)
+The file name and path can be configued in [Initial_Const.php](src/Initial_Const.php) file.
 
 #### error_log file
 
@@ -159,7 +159,7 @@ AIH
 
 ```
 
-The file path can be configued in [Initial_Const.php](scr/Initial_Const.php) file.
+The file path can be configued in [Initial_Const.php](src/Initial_Const.php) file.
 
 #### partner_failed csv file
 
@@ -180,7 +180,7 @@ AIH,"Australian Institute Health and Welfare",NLA
 ### Email
 
 Email is sent after progress.(Need to config email setting in your local environmnet)
-Email Template is defined in [Initial_EmailTemplate.json](scr/template/Initial_EmailTemplate.json)
+Email Template is defined in [Initial_EmailTemplate.json](src/template/Initial_EmailTemplate.json)
 
 Sample content:
 ```
@@ -225,7 +225,7 @@ This file has the same format as Initial records file which is used by Initial p
 
 ## Folders
 
-All program related files are stored in [scr](scr/) folder.
+All program related files are stored in [src](src/) folder.
 
 ### data/initial folder
 
