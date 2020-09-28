@@ -1,0 +1,5 @@
+test/*
+scr/data/*
+!scr/data/init_records_sample.csv
+scr/log/*
+vendor/
