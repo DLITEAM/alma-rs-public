@@ -3,6 +3,7 @@
 require_once 'Initial_Const.php';
 require_once 'EmailStruct.php';
 require_once 'LogClass.php';
+require_once 'Gmail_API.php';
 //require_once 'SendEmail.php';
 
 class ProcessEmail implements Initial_Const
@@ -35,73 +36,67 @@ class ProcessEmail implements Initial_Const
 
 		$log = new LogClass();
 		$log->starttime = date("d/m/Y H:i:s");
-		$this->mbox = imap_open(self::email_domain, 
-														self::email_address, 
-														self::email_password);
-		
-		if($this->mbox == false)
-		{
-			if(self::verbose)
-				echo "\nCould not connect to email server..." . ' File: ' . __FILE__ . ' line_number: ' . __LINE__; 
-			
-			$message  = "\nCan not connect to Gmail from the LADD process";
-			$message .= "\nPlease check the configuration options and try again...";
-			//No, don't send.  Not fair for Clare...
-			//SendEmail::send('Can not connect to Gmail', $message);
-			exit;
-		}
-		
-		//-----
-		//--if there are no messages, then we get this notice.
-		//--return from the script if that is the case.
-		//-----
-		if(imap_last_error() == 'Mailbox is empty' ) 
+		//create an object for Gmail connection and API Calls 
+		$Gmail = new Gmail_API();
+		//get all message ids from INBOX
+		$ids = $Gmail->getMessageIDs(array("INBOX"));
+
+		//no message in INBOX
+		if (empty($ids))
 		{
 			$this->noMessage = true;
-		} 
-		else 
-		{
-			$this->noMessage = false;
-			//--get the number of messages in the mailbox.
-			$this->num_msgs = imap_num_msg($this->mbox);
-			echo $this->num_msgs.PHP_EOL;
-			if(self::verbose) {
-				echo "\nThere were " . $this->num_msgs . " email messages found " . ' File: ' . __FILE__ . ' line_number: ' . __LINE__; 
-			}	
-		}
-		//-----
-
-		if(self::verbose)
-		{
-			$t = $this->noMessage == true ? 'true' : 'false';
-			echo "\nValue of noMessage: " . $t;
-		}
-
-		if($this->noMessage)
 			return;
-
-		//-----
-		//--process emails
-		//-----
-		$message_UID = Array();
-		for($i = 1; $i <= $this->num_msgs; $i++)
-		{
-			$message_UID[] = imap_uid($this->mbox, $i);
-			// echo imap_uid($this->mbox, $i).PHP_EOL;
-			$this->processMessage($i);
 		}
+		//Process messages in INBOX: read content and setup labels
+		$this->noMessage = false;
+		echo "There are ".sizeof($ids)." unread email(s).".PHP_EOL;
+		foreach ($ids as $id)
+		{
+			$emailStruct = new EmailStruct();
+			$headers = $Gmail->getMessageHeader($id);
+			$subject = $Gmail->getHeaderSubject($headers);
+			$received_date = $Gmail->getHeaderDate($headers);
+			$from = $Gmail->getHeaderFrom($headers);
+			// echo $subject.PHP_EOL;
+			// echo $received_date.PHP_EOL;
 
-		// foreach ($message_UID as $UID)
-		// {
-		// 	$this->processMessage($UID);
-		// }
+			if ($subject === self::expect_subject)
+			{
+				$body = $Gmail->getMessageBody($id);
 
-		//--this clears the errors / notices. I.e. when there is no messages.	
-		$errors = imap_errors();
-		
-		imap_expunge($this->mbox);     //called just prior to imap_close.
-		imap_close($this->mbox);
-		
+				$emailStruct->received_date = $received_date;
+				$emailStruct->subject = $subject;
+				$emailStruct->from = $from;
+				$emailStruct->text_orig = $body;
+				$ignore = true;
+				foreach(self::expect_content as $content)
+				{
+					if (strpos($body, $content) !== false)
+					{
+						$this->messages[] = $emailStruct;
+						$emailStruct->process();
+						$Gmail->setLabel($id, array("processed"));
+						$ignore = false;
+						break;
+					}
+				}
+				if ($ignore)
+				{
+					$this->ignoreMessages[] = $emailStruct;
+					$Gmail->setLabel($id, array("ignore"));
+				}
+			}
+			else{
+				$Gmail->setLabel($id, array("other"));
+			}
+			
+			// print_r($body);
+			// echo PHP_EOL;
+		}
+	
+		//modify labels for all messages
+		$Gmail->changeLabels();
+				
 		$text = "There are " . sizeof($this->messages) . " emails that have been processed. Check processed folder in Gmail.".PHP_EOL;
 		$text .= "There are " . sizeof($this->ignoreMessages) . " emails that have been ignored. Check ignore folder in Gmail.".PHP_EOL;
 
@@ -124,14 +119,10 @@ class ProcessEmail implements Initial_Const
 
 		if(isset($headerdate))
 		{
-			// if(self::verbose)
-			// 	echo "\nheader->date: " . $headerdate;
-
+			
 			$myDate = date("d-m-Y H:i:s", strtotime($headerdate));
 			
 			
-			// if(self::verbose)
-			// 	echo "\nmyDate: " . $myDate;
 			$emailStruct->received_date = $myDate;
 			// echo $emailStruct->received_date.PHP_EOL;
 		}
@@ -141,10 +132,6 @@ class ProcessEmail implements Initial_Const
 		$emailStruct->from = isset($header->fromaddress) ? $header->fromaddress : '';
 		//echo $emailStruct->from.PHP_EOL;
 		$emailStruct->text_orig = $body;
-		
-		//echo $emailStruct->text_orig.PHP_EOL;
-
-		// echo "\nemail loop, process function.  EmailNo: $msgid " . ' File: ' . __FILE__ . ' line_number: ' . __LINE__.PHP_EOL; 
 		
 		//-----
 		//--work out if we should process this email, or move it to the ignore folder 

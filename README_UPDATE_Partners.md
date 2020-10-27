@@ -9,7 +9,7 @@ UNSW Library Alma RS Project
 
 1.  PHP 7.0 and above (https://laragon.org/)
 1.  PHP Curl package (client application)
-1.  PHP IMAP package
+1.  Gmail API package
 1.  Git
 1.  Alma API Key (UAT and PROD)
 1.  Email server configuration (if need email notifications)
@@ -20,11 +20,14 @@ Install Laragon (https://laragon.org/) if not good at PHP configuration.
 Enalbe PHP parckage by following Laragon documents
 Clone or download the repo to project folder in local machine (if using Laragon, build project folder under laragon/www folder).
 GitHub repo path: https://github.com/DLITEAM/alma-rs-public
+Install Gmail API package, reference: https://developers.google.com/gmail/api/quickstart/php. In this case, the installation path is project folder/vendor
+Config Gamil API package installation path to Gmail_API.php
+Copy Gmail credentials.json to Gmail_API.php folder (for other Libraries)
+
 
 ### Email account
 
-Gmail account: youraddress@gmail.com
-Username and password need to be added to Initail_Const.php file before running any tests
+Gmail account: youraccount@gmail.com, password see access_info_LASU.txt
 Enable IMAP access in Gmail setting
 Turn off Auto-Expunge
 Turn off 2-step verification in account setting
@@ -217,6 +220,10 @@ All file process functions are defined in this files.
 
 1.  LogClass.php
 All log record functions are defined in this files.
+
+#### Gmail API functions file
+
+1.  Gmail_API.php
 
 #### Initial load process files
 
