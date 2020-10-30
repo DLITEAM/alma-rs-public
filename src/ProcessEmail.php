@@ -39,7 +39,7 @@ class ProcessEmail implements Initial_Const
 		//create an object for Gmail connection and API Calls 
 		$Gmail = new Gmail_API();
 		//get all message ids from INBOX
-		$ids = $Gmail->getMessageIDs(array("INBOX"));
+		$ids = $Gmail->getMessageIDs(array(self::default_label));
 
 		//no message in INBOX
 		if (empty($ids))
@@ -75,7 +75,7 @@ class ProcessEmail implements Initial_Const
 					{
 						$this->messages[] = $emailStruct;
 						$emailStruct->process();
-						$Gmail->setLabel($id, array("processed"));
+						$Gmail->setLabel($id, array(self::processed_label));
 						$ignore = false;
 						break;
 					}
@@ -83,11 +83,11 @@ class ProcessEmail implements Initial_Const
 				if ($ignore)
 				{
 					$this->ignoreMessages[] = $emailStruct;
-					$Gmail->setLabel($id, array("ignore"));
+					$Gmail->setLabel($id, array(self::ignore_label));
 				}
 			}
 			else{
-				$Gmail->setLabel($id, array("other"));
+				$Gmail->setLabel($id, array(self::other_label));
 			}
 			
 			// print_r($body);

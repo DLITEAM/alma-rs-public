@@ -124,7 +124,7 @@ Class Gmail_API implements Initial_Const
 
     if (empty($labelIds))
     {
-      $labelIds = array("INBOX");
+      $labelIds = array(self::default_label);
     }
     $message_option["labelIds"] = $labelIds; //Only return messages with labels that match all of the specified label IDs.
 
@@ -263,7 +263,7 @@ Class Gmail_API implements Initial_Const
     return false;
   }
 
-  public function setLabel($id, $add, $remove = array("INBOX"))
+  public function setLabel($id, $add, $remove = array(self::default_label))
   {
     $modify_message = new Google_Service_Gmail_ModifyMessageRequest(); // Modify request
     foreach ($add as $addname)

@@ -85,6 +85,12 @@ interface Initial_Const
   const email_address  = 'youraddress@gmail.com';
   const email_password = 'yourpassword';
 
+  //Gmail setting
+  const default_label = "INBOX";
+  const processed_label = "processed";
+  const ignore_label = "ignore";
+  const other_label = "other";
+
   const expect_subject = "ISO-ILL Location Updates";
   const expect_source = "";
   const expect_content = array("ADD_LOCATION", //add a new library record if not existing
