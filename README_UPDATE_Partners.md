@@ -28,11 +28,11 @@ Copy Gmail credentials.json to Gmail_API.php folder (for other Libraries)
 
 ### Email account
 
-Gmail account: dli.ill.vdx@gmail.com, password see access_info_LASU.txt
-Enable IMAP access in Gmail setting
-Turn off Auto-Expunge
-Turn off 2-step verification in account setting
-Turn on Less secure app access in account setting
+Gmail account: [address]@gmail.com
+Enable IMAP access in Gmail setting (optional)
+Turn off Auto-Expunge (optional)
+Turn off 2-step verification in account setting 
+Turn on Less secure app access in account setting (optional)
 
 ### Input File
 
