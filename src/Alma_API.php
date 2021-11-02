@@ -125,3 +125,5 @@ Class Alma_API implements Initial_Const
     return $code;
   }
 }
+
+?>

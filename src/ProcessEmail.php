@@ -45,7 +45,12 @@ class ProcessEmail implements Initial_Const
 		if (empty($ids))
 		{
 			$this->noMessage = true;
-			return;
+			$log->endtime = date("d/m/Y H:i:s");
+			$log->type = "email";
+			$log->title = "Email messages process";
+			$log->error_str = "No email";
+			echo $log->error_str.PHP_EOL;
+			return $log;
 		}
 		//Process messages in INBOX: read content and setup labels
 		$this->noMessage = false;
@@ -96,7 +101,76 @@ class ProcessEmail implements Initial_Const
 	
 		//modify labels for all messages
 		$Gmail->changeLabels();
-				
+		
+
+
+		// $this->mbox = imap_open(self::email_domain, 
+		// 												self::email_address, 
+		// 												self::email_password);
+		
+		// if($this->mbox == false)
+		// {
+		// 	if(self::verbose)
+		// 		echo "\nCould not connect to email server..." . ' File: ' . __FILE__ . ' line_number: ' . __LINE__; 
+			
+		// 	$message  = "\nCan not connect to Gmail from the LADD process";
+		// 	$message .= "\nPlease check the configuration options and try again...";
+		// 	//No, don't send.  Not fair for Clare...
+		// 	//SendEmail::send('Can not connect to Gmail', $message);
+		// 	exit;
+		// }
+		
+		// //-----
+		// //--if there are no messages, then we get this notice.
+		// //--return from the script if that is the case.
+		// //-----
+		// if(imap_last_error() == 'Mailbox is empty' ) 
+		// {
+		// 	$this->noMessage = true;
+		// } 
+		// else 
+		// {
+		// 	$this->noMessage = false;
+		// 	//--get the number of messages in the mailbox.
+		// 	$this->num_msgs = imap_num_msg($this->mbox);
+		// 	echo $this->num_msgs.PHP_EOL;
+		// 	if(self::verbose) {
+		// 		echo "\nThere were " . $this->num_msgs . " email messages found " . ' File: ' . __FILE__ . ' line_number: ' . __LINE__; 
+		// 	}	
+		// }
+		// //-----
+
+		// if(self::verbose)
+		// {
+		// 	$t = $this->noMessage == true ? 'true' : 'false';
+		// 	echo "\nValue of noMessage: " . $t;
+		// }
+
+		// if($this->noMessage)
+		// 	return;
+
+		// //-----
+		// //--process emails
+		// //-----
+		// $message_UID = Array();
+		// for($i = 1; $i <= $this->num_msgs; $i++)
+		// {
+		// 	$message_UID[] = imap_uid($this->mbox, $i);
+		// 	// echo imap_uid($this->mbox, $i).PHP_EOL;
+		// 	$this->processMessage($i);
+		// }
+
+		// // foreach ($message_UID as $UID)
+		// // {
+		// // 	$this->processMessage($UID);
+		// // }
+
+		// //--this clears the errors / notices. I.e. when there is no messages.	
+		// $errors = imap_errors();
+		
+		// imap_expunge($this->mbox);     //called just prior to imap_close.
+		// imap_close($this->mbox);
+		
 		$text = "There are " . sizeof($this->messages) . " emails that have been processed. Check processed folder in Gmail.".PHP_EOL;
 		$text .= "There are " . sizeof($this->ignoreMessages) . " emails that have been ignored. Check ignore folder in Gmail.".PHP_EOL;
 
@@ -119,10 +193,14 @@ class ProcessEmail implements Initial_Const
 
 		if(isset($headerdate))
 		{
-			
+			// if(self::verbose)
+			// 	echo "\nheader->date: " . $headerdate;
+
 			$myDate = date("d-m-Y H:i:s", strtotime($headerdate));
 			
 			
+			// if(self::verbose)
+			// 	echo "\nmyDate: " . $myDate;
 			$emailStruct->received_date = $myDate;
 			// echo $emailStruct->received_date.PHP_EOL;
 		}
@@ -132,6 +210,10 @@ class ProcessEmail implements Initial_Const
 		$emailStruct->from = isset($header->fromaddress) ? $header->fromaddress : '';
 		//echo $emailStruct->from.PHP_EOL;
 		$emailStruct->text_orig = $body;
+		
+		//echo $emailStruct->text_orig.PHP_EOL;
+
+		// echo "\nemail loop, process function.  EmailNo: $msgid " . ' File: ' . __FILE__ . ' line_number: ' . __LINE__.PHP_EOL; 
 		
 		//-----
 		//--work out if we should process this email, or move it to the ignore folder 
@@ -198,3 +280,4 @@ class ProcessEmail implements Initial_Const
 
 };
 
+?>

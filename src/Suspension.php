@@ -274,9 +274,9 @@ class Suspension implements Initial_Const{
                   }
                   //echo $put_value.PHP_EOL;
                   $fail = $suspension->suspension_toarray();
+                  $log->error_Log($put_value, json_encode($fail));
                   $fail[] = $put_value;
                   $suspension_fail[] = $fail;
-                  $log->error_Log($put_value, $suspension->code);
                   $result = false;
                   //$create_failed[] = $partner;
                 }
@@ -293,9 +293,9 @@ class Suspension implements Initial_Const{
                 $log->internal_error++;
               }
               $fail = $suspension->suspension_toarray();
+              $log->error_Log($get_value, json_encode($fail));
               $fail[] = $get_value;
               $suspension_fail[] = $fail;
-              $log->error_Log($get_value, $suspension->code);
               $result = false;
             }
           }

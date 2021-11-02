@@ -79,7 +79,8 @@ class LogClass implements Initial_Const{
         $content .= PHP_EOL;
         if (file_exists($this->error_logfile))
         {
-          $content .= "Error Log: ".basename($this->error_logfile).PHP_EOL;
+          $content .= PHP_EOL."Error Log File: ".basename($this->error_logfile);
+          $content .= PHP_EOL.file_get_contents($this->error_logfile).PHP_EOL;
         }
       }
       

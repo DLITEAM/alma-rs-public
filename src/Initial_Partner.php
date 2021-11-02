@@ -311,7 +311,7 @@ class Initial_Partner implements Initial_Const
           {
             $this->initlog->internal_error++;
           }
-          $this->initlog->error_Log($del_value, $del_code);
+          $this->initlog->error_Log($del_value, $del);
         }
       }
     }
@@ -319,51 +319,76 @@ class Initial_Partner implements Initial_Const
 
   private function init_Test()
   {
-    //replace record values
-    $init_record = sprintf($this->initial_template, "ANL", "National Library of Australia", "NLA", $this->ill_port);
-    //replace fixed values
-    $init_record = File_Func::array_Replacevalue(json_decode($init_record, true), $this->initial_fixed);
-    //encode in json format
-    $init_record = json_encode($init_record);
-    //echo $code.PHP_EOL;
 
-    //build post url
-    $post_url = self::server_path."?apikey=".$this->apikey;
-    //echo $post_url.PHP_EOL;
-    //call post function and have return with http code and response
-    $post_response = Alma_API::partner_APIpost($post_url, $init_record);
+    $code = $this->partner_code;
+    //$code = "AWVH%20";
+    echo $code.PHP_EOL;
+    //build get request url
+    $get_url = self::server_path."/$code"."?apikey=".$this->apikey;
+    $get_response = Alma_API::partner_APIget($get_url);
 
-    if (!empty($post_response))
+    if (!empty($get_response))
     {
-      $post_code = $post_response['code'];
-      $post_value = $post_response['resp'];
-      //create sucessfully
-      if ($post_code === 200)
+      $get_code = $get_response['code'];
+      $get_value = $get_response['resp'];
+
+      //not record, then create a new partner
+      if ($get_code === 200)
       {
-        $this->initlog->successful++; 
+        echo "exist".PHP_EOL;
       }
-      //error
-      else 
+      else
       {
-        //bad request
-        if ($post_code === 400)
-        {
-          $this->initlog->failed++;
-        }
-        //Internal Server Error
-        else
-        {
-          $this->initlog->internal_error++;
-        }
-        $this->initlog->error_Log($post_value, "ANL");
-        $create_failed[] = array("ANL", "National Library of Australia", "NLA");
+        echo "not exist".PHP_EOL;
       }
+      $record_json = json_decode($get_value, true);
+      print_r($record_json);
+    }
+    // //replace record values
+    // $init_record = sprintf($this->initial_template, "ANL", "National Library of Australia", "NLA", $this->ill_port);
+    // //replace fixed values
+    // $init_record = File_Func::array_Replacevalue(json_decode($init_record, true), $this->initial_fixed);
+    // //encode in json format
+    // $init_record = json_encode($init_record);
+    // //echo $code.PHP_EOL;
+
+    // //build post url
+    // $post_url = self::server_path."?apikey=".$this->apikey;
+    // //echo $post_url.PHP_EOL;
+    // //call post function and have return with http code and response
+    // $post_response = Alma_API::partner_APIpost($post_url, $init_record);
+
+    // if (!empty($post_response))
+    // {
+    //   $post_code = $post_response['code'];
+    //   $post_value = $post_response['resp'];
+    //   //create sucessfully
+    //   if ($post_code === 200)
+    //   {
+    //     $this->initlog->successful++; 
+    //   }
+    //   //error
+    //   else 
+    //   {
+    //     //bad request
+    //     if ($post_code === 400)
+    //     {
+    //       $this->initlog->failed++;
+    //     }
+    //     //Internal Server Error
+    //     else
+    //     {
+    //       $this->initlog->internal_error++;
+    //     }
+    //     $this->initlog->error_Log($post_value, "ANL");
+    //     $create_failed[] = array("ANL", "National Library of Australia", "NLA");
+    //   }
       
-    }
-    if (!empty($create_failed))
-    {
-      File_Func::create_CSV(self::init_folder."partner_failed_".date("Y-m-d H.i.s").".csv", $create_failed);
-    }
+    // }
+    // if (!empty($create_failed))
+    // {
+    //   File_Func::create_CSV(self::init_folder."partner_failed_".date("Y-m-d H.i.s").".csv", $create_failed);
+    // }
   }
 
   public function output_Init ()

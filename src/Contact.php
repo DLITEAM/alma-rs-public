@@ -243,7 +243,7 @@ class Contact implements Initial_Const
                 {
                   $log->internal_error++;
                 }
-                $log->error_Log($post_value, $code);
+                $log->error_Log($post_value, json_encode($partner));
                 $partner[] = $post_code;
                 $create_failed[] = $partner;
               }
@@ -260,10 +260,10 @@ class Contact implements Initial_Const
           //Internal Server Error
           else
           {
+            $log->internal_error++;
+            $log->error_Log($get_value, json_encode($partner));
             $partner[] = $get_value;
             $create_failed[] = $partner;
-            $log->internal_error++;
-            $log->error_Log($get_value, $code);
             //echo "Internal Server Error";
           }
         }      
@@ -391,17 +391,17 @@ class Contact implements Initial_Const
           else if ($get_code === 400)
           {
             $log->failed++;
-            $log->error_Log($get_value, $code);
+            $log->error_Log($get_value, json_encode($partner));
             $not_existed[] = $partner;
             //echo "Find in system: ".$code.PHP_EOL;
           }
           //Internal Server Error
           else
           {
+            $log->internal_error++;
+            $log->error_Log($get_value, json_encode($partner));
             $partner[] = $get_value;
             $update_failed[] = $partner;
-            $log->internal_error++;
-            $log->error_Log($get_value, $code);
             //echo "Internal Server Error";
           }
         }      

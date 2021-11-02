@@ -1,6 +1,6 @@
 <?php
 require_once 'Initial_Const.php';
-require Initial_Const::root.'vendor/vendor/autoload.php'; //Change to Gmail API installation folder
+require Initial_Const::root.'vendor/vendor/autoload.php';
 
 
 if (php_sapi_name() != 'cli') {
@@ -36,7 +36,7 @@ Class Gmail_API implements Initial_Const
     $client->setApplicationName('UNSW Library Alma RS PHP');
     //$client->setScopes(Google_Service_Gmail::GMAIL_READONLY);
     $client->setScopes(Google_Service_Gmail::GMAIL_MODIFY); //https://www.googleapis.com/auth/gmail.modify
-    $client->setAuthConfig('credentials.json'); //Change to credentials.json location.
+    $client->setAuthConfig('credentials.json');
     $client->setAccessType('offline');
     $client->setPrompt('select_account consent');
 
@@ -293,3 +293,21 @@ Class Gmail_API implements Initial_Const
 
 }
 
+// $Gmail = new Gmail_API();
+// $labels = $Gmail->getLabels();
+// echo $Gmail->searchLabelID("processed").PHP_EOL;
+// $ids = $Gmail->getMessageIDs();
+// foreach ($ids as $id)
+// {
+//   $headers = $Gmail->getMessageHeader($id);
+//   print_r($headers);
+//   echo PHP_EOL;
+//   $subject = $Gmail->getHeaderSubject($headers);
+//   $received_date = $Gmail->getHeaderDate($headers);
+//   echo $subject.PHP_EOL;
+//   echo $received_date.PHP_EOL;
+//   $body = $Gmail->getMessageBody($id);
+//   print_r($body);
+//   echo PHP_EOL;
+// }
+?>

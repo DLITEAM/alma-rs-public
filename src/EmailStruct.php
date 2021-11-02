@@ -166,7 +166,7 @@ class EmailStruct implements Initial_Const
 		$start_array = array();
 		$end_array = array();
 
-		$suspend_filter = array("SUSPENDED_REQUESTING_OK", "SUSPENDED_NO_REQUESTING");
+		$suspend_filter = array("SUSPENDED_REQUESTING_OK", "SUSPENDED_NO_REQUESTING", "CLOSED");
 
 
 		$index = 0;

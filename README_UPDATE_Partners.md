@@ -19,7 +19,8 @@ UNSW Library Alma RS Project
 Install Laragon (https://laragon.org/) if not good at PHP configuration.
 Enalbe PHP parckage by following Laragon documents
 Clone or download the repo to project folder in local machine (if using Laragon, build project folder under laragon/www folder).
-GitHub repo path: https://github.com/DLITEAM/alma-rs-public
+GitHub repo path: https://github.com/DLITEAM/alma-rs
+GitHub account and password is in access_info_LASU.txt
 Install Gmail API package, reference: https://developers.google.com/gmail/api/quickstart/php. In this case, the installation path is project folder/vendor
 Config Gamil API package installation path to Gmail_API.php
 Copy Gmail credentials.json to Gmail_API.php folder (for other Libraries)
@@ -27,7 +28,7 @@ Copy Gmail credentials.json to Gmail_API.php folder (for other Libraries)
 
 ### Email account
 
-Gmail account: youraccount@gmail.com, password see access_info_LASU.txt
+Gmail account: dli.ill.vdx@gmail.com, password see access_info_LASU.txt
 Enable IMAP access in Gmail setting
 Turn off Auto-Expunge
 Turn off 2-step verification in account setting
@@ -42,12 +43,12 @@ Turn on Less secure app access in account setting
 1.  Initail contact template file
 1.  update_suspension.csv file
 
-The file name and path can be configued in [Initial_Const.php](src/Initial_Const.php) file.
+The file name and path can be configued in [Initial_Const.php](scr/Initial_Const.php) file.
 
 #### Initail contact template file
 
 It is a JSON file which defines partner contact record format for API call.
-[See file format](src/template/Initial_ContactTemplate.json)
+[See file format](scr/template/Initial_ContactTemplate.json)
 
 #### update_suspension.csv
 
@@ -71,7 +72,7 @@ Please make sure the date format must be dd-mm-yyyy.
 
 ### Add/Update data and log files
 
-Copy/replace/update following data files to {project_path}/src/data/update
+Copy/replace/update following data files to {project_path}/scr/data/update
 1.  inactive_suspension.csv
 1.  update_suspension.csv
 
@@ -98,7 +99,7 @@ php Update_Progress.php -a PROD
 This progress does following tasks:
 1.  Connect to email account (Gmail)
 1.  Read email and collect useful information
-1.  Save those information to three files in {project_path}/src/data/update folder:
+1.  Save those information to three files in {project_path}/scr/data/update folder:
     1.  add_partners.csv - new partner notification through emails
     1.  update_contact.csv - update contact details notification through emails
     1.  update_suspension.csv - update suspension notification through emails
@@ -197,7 +198,7 @@ Check the library code in Alma PROD
 
 ### Folders
 
-All PHP script files store in src folder.
+All PHP script files store in scr folder.
 All log files store in log folder
 All data format and templates store in template folder
 All data files for initial load store in data/initial folder

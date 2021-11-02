@@ -42,16 +42,18 @@ if (!empty($input))
     $pEmail = new ProcessEmail();
     $log_email = $pEmail->process();
     $log_list[] = $log_email;
-    
+
     //process adding new partners.
     $log_add = Contact::add_location($type);
     $log_list[] = $log_add;
     Contact::del_addfile();
+    sleep(2);
 
     //process updating contact details
     $log_update = Contact::update_contact($type);
     $log_list[] = $log_update;
     Contact::del_contactfile();
+    sleep(2);
 
 
     //update suspension information to Alma partner records
