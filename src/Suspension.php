@@ -134,6 +134,7 @@ class Suspension implements Initial_Const{
   public static function update_Suspensions($alma_type)
   {
     $filename = self::update_suspension;
+    $log = new LogClass();
     if (file_exists($filename))
     {
       $list = File_Func::read_CSV($filename);
@@ -196,7 +197,7 @@ class Suspension implements Initial_Const{
 
       Suspension::del_updatefile();
       
-      $log = new LogClass();
+      
       $log->starttime = date("d/m/Y H:i:s");
 
       $suspension_fail = array();
