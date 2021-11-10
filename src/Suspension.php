@@ -237,7 +237,14 @@ class Suspension implements Initial_Const{
                 {
                   $record_note = substr($record_note, -255);
                 }
-                $record_json["note"][]["content"] = $record_note;
+                //if last note is not same as new note, add new note
+                $note_last = end($record_json["note"]);
+                if ($note_last["content"] !== $record_note)
+                  $record_json["note"][]["content"] = $record_note;
+                //if size of notes is larger then 10, only keep last 10 notes
+                $sizeofNote = 10;
+                if (sizeof($record_json["note"]) > $sizeofNote)
+                  $record_json["note"] = array_slice($record_json["note"], -$sizeofNote);
               }
               //active partner if out of suspension period
               else if ($suspension->status === self::status_list['i'])
