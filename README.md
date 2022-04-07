@@ -195,7 +195,7 @@ This command is used to read Partners' data from remote sources.
 
 1.  LADD
 1.  ILRS
-1.  Directory of New Zealand Libraries (DNZL)
+1.  New Zealand Libraries - Contact National Library for details
 
 Execute readData.php to get Data.
 
@@ -205,7 +205,7 @@ Sample:
 > php readData.php
 ```
 
-It gets LADD data from page: https://www.nla.gov.au/librariesaustralia/connect/find-library/ladd-members-and-suspensions and put them in ladd_data_{date}.csv, and gets DNZL data from https://natlib.govt.nz/directory-of-new-zealand-libraries.csv and put them in dnzl_data_{date}.csv.
+It gets LADD data from page: https://www.nla.gov.au/librariesaustralia/connect/find-library/ladd-members-and-suspensions and put them in ladd_data_{date}.csv, and gets New Zealand Libraries data from local space or links from National Library and put them in dnzl_data_{date}.csv.
 
 ### Output files
 

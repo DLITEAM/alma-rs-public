@@ -33,9 +33,9 @@ interface Initial_Const
   //data path
   //const data_path = self::root."scr/data/";
   //template path
-  const template_path = self::root."scr/template/";
+  const template_path = self::root."src/template/";
   //log path
-  const log_path = self::root."scr/log/";
+  const log_path = self::root."src/log/";
   //log file template
   const template_log = self::template_path."progress_logtemplate.log";
   //progress log file
@@ -61,7 +61,7 @@ interface Initial_Const
   //Initial partner record: fixed value in record
   const template_fixedfile = self::template_path."Initial_PartnerFixed.json";
   //File path for initial loading data
-  const init_folder = self::root."scr/data/initial/";
+  const init_folder = self::root."src/data/initial/";
   const init_csv = self::init_folder."init_records.csv";
   
 
@@ -73,7 +73,7 @@ interface Initial_Const
   const verbose = false;
 
   //files
-  const update_folder = self::root."scr/data/update/";
+  const update_folder = self::root."src/data/update/";
   const suspend_inactive = self::update_folder."inactive_suspension.csv";
   const add_partner = self::update_folder."add_partners.csv";
   const update_suspension = self::update_folder."update_suspension.csv";

@@ -5,7 +5,9 @@ class Partner_Data
 {
   const LADD_MemberURL = "https://www.nla.gov.au/librariesaustralia/connect/find-library/ladd-members-and-suspensions";
   //Const LADD_DatafilePath = ROOT_PATH."scr/data/";
-  const DNZL_MemberURL = "https://natlib.govt.nz/directory-of-new-zealand-libraries.csv";
+
+  //change NZ library details files file path or URL below before run this script
+  const DNZL_MemberURL = "";
 
   static public function LADD_Data()
   {
@@ -210,6 +212,11 @@ class Partner_Data
 
   static public function DNZL_Data()
   {
+    if (!self::DNZL_MemberURL)
+    {
+      echo "Please add NZ library details file path or URL in this script first.".PHP_EOL;
+      exit;
+    }
     $Data_return = array();
     $CSVcontent = file_get_contents(self::DNZL_MemberURL);
     $filepath = Initial_Partner::init_folder."dnzl_data_".date("Ymd").".csv";
@@ -220,7 +227,7 @@ class Partner_Data
     foreach($content as $data)
     {
       //$data = array_splice($data, 0, 3);
-      $Data_return[] = array("NLNZ:".$data[0], $data[2], "NLNZ", $data[6]);
+      $Data_return[] = array("NLNZ:".$data[0], $data[2], "NLNZ", $data[3]);
     }
     return $Data_return;
   }
