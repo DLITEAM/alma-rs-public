@@ -82,11 +82,7 @@ class Contact implements Initial_Const
       $line1 = str_ireplace("email", "", $line1);
     }
     $line1 = trim(preg_replace("/[^a-zA-Z0-9\s]+/", "", $line1));
-    if ($line1)
-    {
-      $this->line1 = $line1;
-    }
-
+    
     //clean up line2, remove phone number and other special chars
     $line2 = $this->line2;
     $needle = array("ph", "phone");
@@ -94,6 +90,23 @@ class Contact implements Initial_Const
     $line2 = str_ireplace($needle, $delimiter, $line2);
     $line2 = explode($delimiter, $line2);
     $this->line2 = trim(preg_replace("/[^a-zA-Z0-9\s]+/", "", $line2[0]));
+    $this->line2 = $line2;
+
+    if ($line1)
+    {
+      $this->line1 = $line1;
+    }
+    else
+    {
+      if ($line2)
+      {
+        $this->line1 = $line2;
+      }
+      else
+      {
+        $this->line1 = "To Recipient";
+      }
+    }
   }
 
   public function build_phone()
